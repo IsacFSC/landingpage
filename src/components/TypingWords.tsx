@@ -11,6 +11,8 @@ export default function TypingWords() {
           2000,
           'Tráfego',
           2000,
+          'Automação',
+          2000,
           'Conversão',
           2000,
         ]}

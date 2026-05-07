@@ -1,4 +1,4 @@
-import { Code2, TrendingUp, MapPin, ChevronRight } from 'lucide-react';
+import { Code2, TrendingUp, MapPin, ChevronRight, BotMessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
 
@@ -10,6 +10,13 @@ interface Service {
 }
 
 const services: Service[] = [
+  {
+    icon: BotMessageSquare,
+    title: 'Automação de Serviços',
+    desc: 'Chatbots inteligentes que qualificam leads e fecham vendas 24/7, sem intervenção humana.',
+    whatsappMsg:
+      'Olá! Quero saber mais sobre como a Automação de Serviços com Chatbots pode ajudar meu negócio.',
+  },
   {
     icon: Code2,
     title: 'Plataformas de Conversão',
@@ -79,7 +86,7 @@ export default function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid gap-6 md:grid-cols-3"
+          className="grid gap-6 md:grid-cols-4"
         >
           {services.map((s, i) => (
             <motion.div

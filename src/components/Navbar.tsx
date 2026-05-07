@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import TypingWords from './TypingWords';
+import Image from 'astro/components/Image.astro';
 
 export default function Navbar() {
   const [active, setActive] = useState<string>('servicos');
@@ -45,24 +46,30 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-2xl">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+      <nav className="mx-auto flex-3 flex h-16 max-w-6xl items-center justify-between px-4">
         {/* LOGO */}
         <a
           href="/"
           className="relative z-50 flex items-center text-xl font-bold tracking-tighter"
         >
-          <span className="animate-gradient bg-gradient-to-r from-slate-200 via-white to-slate-400 bg-clip-text text-transparent">
+          {/* <span className="animate-gradient bg-gradient-to-r from-slate-200 via-white to-slate-400 bg-clip-text text-transparent">
             DS
-          </span>
-
-          <span className="hidden bg-gradient-to-r from-green-300 via-green-400 to-[#08CB00] bg-clip-text text-transparent md:block">
+          </span> */}
+          <img
+            src="/brand/icon-aba.jpg"
+            alt="Logo da DS Desenvolvimento"
+            width={32}
+            height={32}
+            className=" rounded-full flex m-1"
+          />
+          <span className="hidden md:flex animate-gradient bg-gradient-to-r from-slate-200 via-white to-slate-400 bg-clip-text text-transparent">
             Desenvolvimento
           </span>
-          <div className='justify-center items-center ml-2 md:hidden flex'>
+          <div className='ml-2 md:hidden flex items-start min-w-44'>
             <TypingWords />
           </div>
         </a>
-
+        
         {/* DESKTOP MENU */}
         <div className="hidden items-center gap-8 text-sm font-medium md:flex">
           {['servicos', 'resultados', 'contato'].map((item) => (
