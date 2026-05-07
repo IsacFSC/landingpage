@@ -4,94 +4,127 @@ import '../styles/global.css';
 interface Props {
 	title: string;
 	description?: string;
+	image?: string;
 }
 
-const { title, description = "DS Desenvolvimento - Especialistas em Landing Pages, Gestão de Tráfego e SEO Local." } = Astro.props;
+const {
+	title,
+	description = "Criação de Sites, Landing Pages e SEO Local em Campo Grande MS. Aumente seus clientes com performance e estratégia digital.",
+	image = "/brand/brand.jpg"
+} = Astro.props;
 
+const siteUrl = "https://dsdesenvolvimento.com.br";
+const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
+
+/* =========================
+   🧠 SEO LOCAL (GEO + Schema)
+========================= */
 const schema = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": "LocalBusiness",
   "name": "DS Desenvolvimento",
-  "image": "/logo.png",
-  "@id": "",
-  "url": "https://dsdesenvolvimento.com.br",
+  "image": `${siteUrl}/brand/brand.jpg`,
+  "@id": siteUrl,
+  "url": siteUrl,
   "telephone": "+5567981178782",
+  "priceRange": "$$",
+  "description": description,
+
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "",
+    "streetAddress": "Campo Grande",
     "addressLocality": "Campo Grande",
     "addressRegion": "MS",
-    "postalCode": "",
+    "postalCode": "79000-000",
     "addressCountry": "BR"
   },
+
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": -20.4697,
     "longitude": -54.6201
   },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday"
-    ],
-    "opens": "08:00",
-    "closes": "18:00"
-  },
+
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Campo Grande"
+    },
+    {
+      "@type": "Country",
+      "name": "Brasil"
+    }
+  ],
+
+  "serviceType": [
+    "Criação de Sites",
+    "Landing Pages",
+    "SEO Local",
+    "Gestão de Tráfego"
+  ],
+
   "sameAs": [
-    "https://www.facebook.com/dsdesenvolvimento",
-    "https://www.instagram.com/dsdesenvolvimento"
-  ] 
+    "https://www.instagram.com/dsdesenvolvimento",
+    "https://www.facebook.com/dsdesenvolvimento"
+  ]
 };
 ---
 
 <!doctype html>
-<html lang="pt-BR">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		
-		<!-- SEO Tags -->
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url} />
-		
-		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<html lang="pt-BR" class="dark">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+	<!-- =========================
+	     🔥 SEO PRINCIPAL
+	========================= -->
+	<title>{title}</title>
+	<meta name="description" content={description} />
+	<link rel="canonical" href={currentUrl} />
 
-		<script is:inline>
-			const theme = (() => {
-				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-					return localStorage.getItem('theme');
-				}
-				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-					return 'dark';
-				}
-				return 'light';
-			})();
-		
-			if (theme === 'light') {
-				document.documentElement.classList.remove('dark');
-			} else {
-				document.documentElement.classList.add('dark');
-			}
-			window.localStorage.setItem('theme', theme);
-		</script>
-	</head>
-	<body class="font-sans antialiased">
+	<meta name="robots" content="index, follow" />
+
+	<!-- =========================
+	     📱 OPEN GRAPH (WhatsApp / Social)
+	========================= -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={currentUrl} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:image" content={`${siteUrl}${image}`} />
+	<meta property="og:site_name" content="DS Desenvolvimento" />
+
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={description} />
+	<meta name="twitter:image" content={`${siteUrl}${image}`} />
+
+	<!-- =========================
+	     🧠 FAVICON / BRAND
+	========================= -->
+	<link rel="icon" href="/brand/brand.jpg" />
+	<link rel="apple-touch-icon" href="/brand/brand.jpg" />
+
+	<!-- =========================
+	     ⚡ FONTS (performance)
+	========================= -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+	<!-- =========================
+	     🧠 STRUCTURED DATA (GEO SEO)
+	========================= -->
+	<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+
+<body class="font-sans antialiased">
+	<main>
 		<slot />
-	</body>
+	</main>
+</body>
 </html>
 
 <style is:global>
@@ -99,10 +132,13 @@ const schema = {
 		--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 		--font-heading: 'Poppins', sans-serif;
 	}
-	h1, h2, h3, h4, h5, h6 {
-		font-family: var(--font-heading);
-	}
+
 	body {
 		font-family: var(--font-sans);
+	}
+
+	h1, h2, h3, h4 {
+		font-family: var(--font-heading);
+		letter-spacing: -0.02em;
 	}
 </style>
