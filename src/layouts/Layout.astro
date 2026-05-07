@@ -13,8 +13,9 @@ const {
 	image = "/brand/brand.jpg"
 } = Astro.props;
 
-const siteUrl = "https://dsdesenvolvimento.com.br";
+const siteUrl = "https://landingpage-ds.netlify.app";
 const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = new URL(image, siteUrl).toString();
 
 /* =========================
    🧠 SEO LOCAL (GEO + Schema)
@@ -23,7 +24,7 @@ const schema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "DS Desenvolvimento",
-  "image": `${siteUrl}/brand/brand.jpg`,
+  "image": ogImageUrl,
   "@id": siteUrl,
   "url": siteUrl,
   "telephone": "+5567981178782",
@@ -92,14 +93,18 @@ const schema = {
 	<meta property="og:url" content={currentUrl} />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
-	<meta property="og:image" content={`${siteUrl}${image}`} />
+	<meta property="og:image" content={ogImageUrl} />
+	<meta property="og:image:secure_url" content={ogImageUrl} />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
 	<meta property="og:site_name" content="DS Desenvolvimento" />
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
-	<meta name="twitter:image" content={`${siteUrl}${image}`} />
+	<meta name="twitter:image" content={ogImageUrl} />
 
 	<!-- =========================
 	     🧠 FAVICON / BRAND
